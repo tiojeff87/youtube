@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Youtube.web", "Youtube\Youtube.web.csproj", "{FC18F0FF-34D6-4071-901C-1684FBA211B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Youtube.Infrastructure", "Youtube.Infrastructure\Youtube.Infrastructure.csproj", "{E1F1585C-59FE-450F-8535-4C348F93BC1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Youtube.Domain", "Youtube.Domain\Youtube.Domain.csproj", "{29AEA8F9-A144-46D8-9B69-100A48FC928A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Youtube.Application", "Youtube.Application\Youtube.Application.csproj", "{38089853-70C9-4DF6-A42E-5E323DEC442B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC18F0FF-34D6-4071-901C-1684FBA211B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC18F0FF-34D6-4071-901C-1684FBA211B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC18F0FF-34D6-4071-901C-1684FBA211B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC18F0FF-34D6-4071-901C-1684FBA211B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1F1585C-59FE-450F-8535-4C348F93BC1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F1585C-59FE-450F-8535-4C348F93BC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F1585C-59FE-450F-8535-4C348F93BC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F1585C-59FE-450F-8535-4C348F93BC1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AEA8F9-A144-46D8-9B69-100A48FC928A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AEA8F9-A144-46D8-9B69-100A48FC928A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AEA8F9-A144-46D8-9B69-100A48FC928A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AEA8F9-A144-46D8-9B69-100A48FC928A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38089853-70C9-4DF6-A42E-5E323DEC442B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38089853-70C9-4DF6-A42E-5E323DEC442B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38089853-70C9-4DF6-A42E-5E323DEC442B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38089853-70C9-4DF6-A42E-5E323DEC442B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D28B5C2-9EBF-4446-B075-D85D78C5A204}
+	EndGlobalSection
+EndGlobal
