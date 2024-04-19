@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Youtube.Domain.Entities.Youtuber>
+
+<div class="w-100 card border-0 p-4">
+	<div class="card-header bg-danger bg-gradient m-lg-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-white py-2">Youtuber List</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body border p-4">
+		<div class="row pb-3">
+			<div class="col-6 offset-6 text-end">
+				<a asp-controller="Youtuber" asp-action="Create" class="btn btn-secondary">
+					<i class="bi bi-cloud-plus-fill"></i>  Create New Youtuber
+				</a>
+			</div>
+		</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Subscribers</th>
+					<th>Videos</th>
+					<th>Views</th>
+					<th>Joined</th>
+					<th>Country</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				@foreach (var obj in Model)
+				{
+					<tr>
+						<td>@obj.Name</td>
+						<td>@obj.Subscribers</td>
+						<td>@obj.videos</td>
+						<td>@obj.views</td>
+						<td>@obj.Joined</td>
+						<td>@obj.country</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

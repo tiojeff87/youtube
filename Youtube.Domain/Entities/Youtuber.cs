@@ -8,7 +8,7 @@
         public int videos { get; set; }
         public int views { get; set; }
         public DateTime Joined { get; set; }
-        public string? country { get; set; }
+        public string country { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
     }
