@@ -1,24 +1,25 @@
-﻿using Youtube.Infrastructure.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Youtube.Domain.Entities;
+using Youtube.Infrastructure.Data;
 
 namespace Youtube.web.Controllers
 {
-    public class YoutuberController : Controller
+    public class YoutuberRecordsController : Controller
     {
         private readonly ApplicationDbContext _db;
 
-        public YoutuberController(ApplicationDbContext db)
+        public YoutuberRecordsController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public IActionResult Index()
         {
-            var youtube = _db.Youtubers.ToList();
+            var YoutuberRecords = _db.YoutuberRecords.ToList();
 
-            return View(youtube);
+            return View(YoutuberRecords);
         }
+
         public IActionResult Create()
         {
             return View();
@@ -26,24 +27,25 @@ namespace Youtube.web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Youtuber obj)
+        public IActionResult Create(YoutuberRecords obj)
         {
-
             if (ModelState.IsValid)
             {
-                _db.Youtubers.Add(obj);
+                _db.YoutuberRecords.Add(obj);
                 _db.SaveChanges();
-                TempData["success"] = "The Youtuber has been created successfully.";
+                TempData["success"] = "The Youtuber Records has been created successfully.";
                 return RedirectToAction(nameof(Index));
             }
 
-            TempData["error"] = "The Youtuber could not be created.";
+            TempData["error"] = "The Youtuber Records could not be created.";
             return View(obj);
         }
-
-        public IActionResult Update(int YoutuberId)
+        public IActionResult Update(int villaId)
         {
-            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == YoutuberId);
+            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == villaId);
+
+            //Villa? obj2 = _db.Villas.Find(villaId);
+            //var VillaList = _db.Villas.Where(_ => _.Price > 50 && _.Occupancy > 0);
 
             if (obj is null)
             {
@@ -61,7 +63,7 @@ namespace Youtube.web.Controllers
             {
                 _db.Youtubers.Update(obj);
                 _db.SaveChanges();
-                TempData["success"] = "The Youtuber has been updated successfully.";
+                TempData["success"] = "The villa has been updated successfully.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -69,9 +71,9 @@ namespace Youtube.web.Controllers
             return View(obj);
         }
 
-        public IActionResult Delete(int YoutuberId)
+        public IActionResult Delete(int villaId)
         {
-            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == YoutuberId);
+            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == villaId);
 
             if (obj is null)
             {
@@ -91,12 +93,12 @@ namespace Youtube.web.Controllers
                 _db.Youtubers.Remove(objFromDb);
                 _db.SaveChanges();
 
-                TempData["success"] = "The Youtuber has been deleted successfully.";
+                TempData["success"] = "The villa has been deleted successfully.";
 
                 return RedirectToAction(nameof(Index));
             }
 
-            TempData["error"] = "The Youtuber could not be deleted.";
+            TempData["error"] = "The villa could not be deleted.";
             return View(obj);
         }
     }

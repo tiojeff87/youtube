@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Diagnostics.Metrics;
 using Youtube.Domain.Entities;
 
@@ -8,10 +9,11 @@ namespace Youtube.Infrastructure.Data
     {
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-
-        }
+        {}
         public DbSet<Youtuber> Youtubers { get; set; }
+
+        public DbSet<YoutuberRecords> YoutuberRecords { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // base.OnModelCreating(modelBuilder);
@@ -45,6 +47,43 @@ namespace Youtube.Infrastructure.Data
                     views = 292766664,
                     Joined = DateTime.Now,
                     country = "Sweden",
+                });
+
+            modelBuilder.Entity<YoutuberRecords>().HasData(
+                new YoutuberRecords
+                {
+                    Youtuber_Trophy = 1,
+                    YoutubeId = 1,
+                },
+                new YoutuberRecords
+                {
+                    Youtuber_Trophy = 2,
+                    YoutubeId = 1,
+                },
+                new YoutuberRecords
+                {
+                    Youtuber_Trophy = 1,
+                    YoutubeId = 2,
+                },
+                new YoutuberRecords
+                {
+                    Youtuber_Trophy = 1,
+                    YoutubeId = 3,
+                },
+                new YoutuberRecords
+                {
+                    Youtuber_Trophy = 2,
+                    YoutubeId = 3,
+                },
+                new YoutuberRecords
+                {
+                    Youtuber_Trophy = 3,
+                    YoutubeId = 3,
+                },
+                new YoutuberRecords
+                {
+                    Youtuber_Trophy = 4,
+                    YoutubeId = 3,
                 });
         }
     }
