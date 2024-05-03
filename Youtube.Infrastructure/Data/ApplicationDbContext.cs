@@ -52,39 +52,53 @@ namespace Youtube.Infrastructure.Data
             modelBuilder.Entity<YoutuberRecords>().HasData(
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 1,
-                    YoutubeId = 1,
+                    Youtuber_Trophy = 100000,
+                    YoutuberId = 1,
+                    SpecialDetails = "Some special details for this record"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 2,
-                    YoutubeId = 1,
+                    Youtuber_Trophy = 1000000,
+                    YoutuberId = 1,
+                    SpecialDetails = "Some special details for this record"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 1,
-                    YoutubeId = 2,
+                    Youtuber_Trophy = 100001,
+                    YoutuberId = 2,
+                    SpecialDetails = "Some special details for this record"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 1,
-                    YoutubeId = 3,
+                    Youtuber_Trophy = 100002,
+                    YoutuberId = 3,
+                    SpecialDetails = "Some special details for this record"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 2,
-                    YoutubeId = 3,
+                    Youtuber_Trophy = 100005,
+                    YoutuberId = 3,
+                    SpecialDetails = "Some special details for this record"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 3,
-                    YoutubeId = 3,
+                    Youtuber_Trophy = 10000000,
+                    YoutuberId = 3,
+                    SpecialDetails = "Some special details for this record"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 4,
-                    YoutubeId = 3,
+                    Youtuber_Trophy = 50000000,
+                    YoutuberId = 3,
+                    SpecialDetails = "Some special details for this record"
                 });
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // Habilitar o Sensitive Data Logging
+            optionsBuilder.EnableSensitiveDataLogging();
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

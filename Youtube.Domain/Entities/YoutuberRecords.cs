@@ -10,8 +10,8 @@ namespace Youtube.Domain.Entities
         [Display(Name = "Youtuber Trophy")]
         public int Youtuber_Trophy { get; set; }
 
-        [ForeignKey("YoutubeId")]
-        public int YoutubeId { get; set; }
+        [ForeignKey("YoutuberId")]
+        public int YoutuberId { get; set; }
 
         [ValidateNever]
         public Youtuber Youtuber { get; set; } = null!;
