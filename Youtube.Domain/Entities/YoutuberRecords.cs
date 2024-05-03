@@ -6,7 +6,6 @@ namespace Youtube.Domain.Entities
 {
     public class YoutuberRecords
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Youtuber Trophy")]
         public int Youtuber_Trophy { get; set; }
 
