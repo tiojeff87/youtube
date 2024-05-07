@@ -47,13 +47,13 @@ namespace Youtube.Infrastructure.Migrations
                 columns: new[] { "Youtuber_Trophy", "SpecialDetails", "YoutuberId" },
                 values: new object[,]
                 {
-                    { 100000, "Some special details for this record", 1 },
-                    { 100001, "Some special details for this record", 2 },
-                    { 100002, "Some special details for this record", 3 },
-                    { 100005, "Some special details for this record", 3 },
-                    { 1000000, "Some special details for this record", 1 },
-                    { 10000000, "Some special details for this record", 3 },
-                    { 50000000, "Some special details for this record", 3 }
+                    { 100001, "Some special details for this record", 1 },
+                    { 100002, "Some special details for this record", 2 },
+                    { 100003, "Some special details for this record", 3 },
+                    { 1000003, "Some special details for this record", 3 },
+                    { 1000001, "Some special details for this record", 1 },
+                    { 10000003, "Some special details for this record", 3 },
+                    { 50000003, "Some special details for this record", 3 }
                 });
 
             migrationBuilder.UpdateData(

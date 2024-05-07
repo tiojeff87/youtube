@@ -64,7 +64,7 @@ namespace Youtube.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Joined = new DateTime(2024, 5, 3, 17, 29, 57, 50, DateTimeKind.Local).AddTicks(5784),
+                            Joined = new DateTime(2024, 5, 3, 20, 38, 47, 420, DateTimeKind.Local).AddTicks(7738),
                             Name = "Wuant",
                             Subscribers = 3690000,
                             country = "Portugal",
@@ -74,7 +74,7 @@ namespace Youtube.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Joined = new DateTime(2024, 5, 3, 17, 29, 57, 50, DateTimeKind.Local).AddTicks(5842),
+                            Joined = new DateTime(2024, 5, 3, 20, 38, 47, 420, DateTimeKind.Local).AddTicks(7792),
                             Name = "Toshiruz",
                             Subscribers = 616000,
                             country = "Brazil",
@@ -84,7 +84,7 @@ namespace Youtube.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            Joined = new DateTime(2024, 5, 3, 17, 29, 57, 50, DateTimeKind.Local).AddTicks(5845),
+                            Joined = new DateTime(2024, 5, 3, 20, 38, 47, 420, DateTimeKind.Local).AddTicks(7794),
                             Name = "Wuant",
                             Subscribers = 111000000,
                             country = "Sweden",
@@ -96,7 +96,10 @@ namespace Youtube.Infrastructure.Migrations
             modelBuilder.Entity("Youtube.Domain.Entities.YoutuberRecords", b =>
                 {
                     b.Property<int>("Youtuber_Trophy")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Youtuber_Trophy"));
 
                     b.Property<string>("SpecialDetails")
                         .HasColumnType("nvarchar(max)");
@@ -113,43 +116,43 @@ namespace Youtube.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Youtuber_Trophy = 100000,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 1
-                        },
-                        new
-                        {
-                            Youtuber_Trophy = 1000000,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 1
-                        },
-                        new
-                        {
                             Youtuber_Trophy = 100001,
                             SpecialDetails = "Some special details for this record",
-                            YoutuberId = 2
+                            YoutuberId = 1
+                        },
+                        new
+                        {
+                            Youtuber_Trophy = 1000001,
+                            SpecialDetails = "Some special details for this record",
+                            YoutuberId = 1
                         },
                         new
                         {
                             Youtuber_Trophy = 100002,
                             SpecialDetails = "Some special details for this record",
-                            YoutuberId = 3
+                            YoutuberId = 2
                         },
                         new
                         {
-                            Youtuber_Trophy = 100005,
+                            Youtuber_Trophy = 100003,
                             SpecialDetails = "Some special details for this record",
                             YoutuberId = 3
                         },
                         new
                         {
-                            Youtuber_Trophy = 10000000,
+                            Youtuber_Trophy = 10000003,
                             SpecialDetails = "Some special details for this record",
                             YoutuberId = 3
                         },
                         new
                         {
-                            Youtuber_Trophy = 50000000,
+                            Youtuber_Trophy = 100000003,
+                            SpecialDetails = "Some special details for this record",
+                            YoutuberId = 3
+                        },
+                        new
+                        {
+                            Youtuber_Trophy = 50000003,
                             SpecialDetails = "Some special details for this record",
                             YoutuberId = 3
                         });
