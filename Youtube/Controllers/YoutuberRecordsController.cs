@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Youtube.Domain.Entities;
 using Youtube.Infrastructure.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Youtube.web.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Youtube.web.Controllers
 {
@@ -15,7 +18,9 @@ namespace Youtube.web.Controllers
 
         public IActionResult Index()
         {
-            var YoutuberRecords = _db.YoutuberRecords.ToList();
+            var YoutuberRecords = _db.YoutuberRecords
+                .Include(u => u.Youtuber)
+                .ToList();
 
             return View(YoutuberRecords);
         }
