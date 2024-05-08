@@ -17,6 +17,6 @@ namespace Youtube.Domain.Entities
         public Youtuber Youtuber { get; set; } = null!;
 
         [Display(Name = "Youtuber Trophy")]
-        public required string Youtuber_Trophy { get; set; }
+        public string? Youtuber_Trophy { get; set; }
     }
 }

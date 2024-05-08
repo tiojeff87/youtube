@@ -4,6 +4,7 @@ using Youtube.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Youtube.web.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Youtube.web.Controllers
 {
@@ -27,84 +28,135 @@ namespace Youtube.web.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            youtuberRecordsVM youtuberRecordsVM = new()
+            {
+                YoutuberList = _db.Youtubers.ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                })
+            };
+            return View(youtuberRecordsVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(YoutuberRecords obj)
+        public IActionResult Create(youtuberRecordsVM obj)
         {
             if (ModelState.IsValid)
             {
-                _db.YoutuberRecords.Add(obj);
-                _db.SaveChanges();
-                TempData["success"] = "The Youtuber Records has been created successfully.";
-                return RedirectToAction(nameof(Index));
+                bool roomNumberExists = _db.YoutuberRecords.Any(u => u.Votos == obj.YoutuberRecords.Votos);
+
+                if (!roomNumberExists)
+                {
+                    // Remove the explicit setting of the Votos property
+                    obj.YoutuberRecords.Votos = 0; // Or any default value if necessary
+
+                    _db.YoutuberRecords.Add(obj.YoutuberRecords);
+                    _db.SaveChanges();
+                    TempData["success"] = "The villa number has been created successfully.";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["error"] = "A Youtuber record with the same Votos value already exists.";
+                }
             }
 
-            TempData["error"] = "The Youtuber Records could not be created.";
+            // Re-populate the YoutuberList property
+            obj.YoutuberList = _db.Youtubers.Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            }).ToList();
+
             return View(obj);
         }
-        public IActionResult Update(int villaId)
+        public IActionResult Update(int youtuberRecordsId)
         {
-            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == villaId);
+            youtuberRecordsVM viewModel = new youtuberRecordsVM
+            {
+                YoutuberList = _db.Youtubers
+                    .Select(y => new SelectListItem
+                    {
+                        Text = y.Name,
+                        Value = y.Id.ToString()
+                    })
+                    .ToList(),
+                YoutuberRecords = _db.YoutuberRecords.FirstOrDefault(y => y.Votos == youtuberRecordsId)
+            };
 
-            //Villa? obj2 = _db.Villas.Find(villaId);
-            //var VillaList = _db.Villas.Where(_ => _.Price > 50 && _.Occupancy > 0);
-
-            if (obj is null)
+            if (viewModel.YoutuberRecords == null)
             {
                 return RedirectToAction("Error", "Home");
             }
 
-            return View(obj);
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Youtuber obj)
+        public IActionResult Update(youtuberRecordsVM viewModel)
         {
-            if (ModelState.IsValid && obj.Id > 0)
+            if (ModelState.IsValid && viewModel.YoutuberRecords != null)
             {
-                _db.Youtubers.Update(obj);
+                _db.YoutuberRecords.Update(viewModel.YoutuberRecords);
                 _db.SaveChanges();
-                TempData["success"] = "The villa has been updated successfully.";
+                TempData["success"] = "The youtuber record has been updated successfully.";
                 return RedirectToAction(nameof(Index));
             }
 
-            TempData["error"] = "The villa could not be updated.";
-            return View(obj);
+            TempData["error"] = "The youtuber record could not be updated.";
+            viewModel.YoutuberList = _db.Youtubers
+                .Select(y => new SelectListItem
+                {
+                    Text = y.Name,
+                    Value = y.Id.ToString()
+                })
+                .ToList();
+
+            return View(viewModel);
         }
 
-        public IActionResult Delete(int villaId)
+        public IActionResult Delete(int youtuberRecordsId)
         {
-            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == villaId);
+            youtuberRecordsVM youtuberRecordsVM = new()
+            {
+                YoutuberList = _db.Youtubers.ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                YoutuberRecords = _db.YoutuberRecords.FirstOrDefault(_ => _.Votos == youtuberRecordsId)!
+            };
 
-            if (obj is null)
+            if (youtuberRecordsVM.YoutuberRecords is null)
             {
                 return RedirectToAction("Error", "Home");
             }
 
-            return View(obj);
+            return View(youtuberRecordsVM);
         }
 
         [HttpPost]
-        public IActionResult Delete(Youtuber obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(youtuberRecordsVM youtuberRecordsVM)
         {
-            Youtuber? objFromDb = _db.Youtubers.FirstOrDefault(_ => _.Id == obj.Id);
+            YoutuberRecords objFromDb = _db.YoutuberRecords
+                .FirstOrDefault(_ => _.Votos == youtuberRecordsVM.YoutuberRecords.Votos);
 
             if (objFromDb is not null)
             {
-                _db.Youtubers.Remove(objFromDb);
+                _db.YoutuberRecords.Remove(objFromDb);
                 _db.SaveChanges();
 
-                TempData["success"] = "The villa has been deleted successfully.";
+                TempData["success"] = "The youtuber records has been deleted successfully.";
 
                 return RedirectToAction(nameof(Index));
             }
 
-            TempData["error"] = "The villa could not be deleted.";
-            return View(obj);
+            TempData["error"] = "The youtuber records could not be deleted.";
+            return View(youtuberRecordsVM);
         }
     }
 }

@@ -31,7 +31,7 @@
                 @foreach (var obj in Model)
                 {
                     <tr>
-                        <td>@obj.YoutuberId</td>
+                        <td>@obj.Youtuber.Name</td>
                         <td>@obj.Votos</td>
                         <td>@obj.Youtuber_Trophy</td>
                         <td>
@@ -44,7 +44,6 @@
                                 </a>
                             </div>
                         </td>
-
                     </tr>
                 }
             </tbody>
