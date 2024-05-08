@@ -27,13 +27,14 @@ namespace Youtube.Infrastructure.Migrations
                 name: "YoutuberRecords",
                 columns: table => new
                 {
-                    Youtuber_Trophy = table.Column<int>(type: "int", nullable: false),
+                    Votos = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     YoutuberId = table.Column<int>(type: "int", nullable: false),
-                    SpecialDetails = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Youtuber_Trophy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_YoutuberRecords", x => x.Youtuber_Trophy);
+                    table.PrimaryKey("PK_YoutuberRecords", x => x.Votos);
                     table.ForeignKey(
                         name: "FK_YoutuberRecords_Youtubers_YoutuberId",
                         column: x => x.YoutuberId,
@@ -44,16 +45,16 @@ namespace Youtube.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "YoutuberRecords",
-                columns: new[] { "Youtuber_Trophy", "SpecialDetails", "YoutuberId" },
+                columns: new[] { "Votos", "YoutuberId", "Youtuber_Trophy" },
                 values: new object[,]
                 {
-                    { 100001, "Some special details for this record", 1 },
-                    { 100002, "Some special details for this record", 2 },
-                    { 100003, "Some special details for this record", 3 },
-                    { 1000003, "Some special details for this record", 3 },
-                    { 1000001, "Some special details for this record", 1 },
-                    { 10000003, "Some special details for this record", 3 },
-                    { 50000003, "Some special details for this record", 3 }
+                    { 100001, 1, "silver" },
+                    { 100002, 2, "silver" },
+                    { 100003, 3, "silver" },
+                    { 1000001, 1, "gold" },
+                    { 10000003, 3, "gold" },
+                    { 50000003, 3, "ruby" },
+                    { 100000003, 3, "diamond" }
                 });
 
             migrationBuilder.UpdateData(
@@ -61,21 +62,21 @@ namespace Youtube.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "Joined",
-                value: new DateTime(2024, 5, 3, 17, 29, 57, 50, DateTimeKind.Local).AddTicks(5784));
+                value: new DateTime(2012, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.UpdateData(
                 table: "Youtubers",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "Joined",
-                value: new DateTime(2024, 5, 3, 17, 29, 57, 50, DateTimeKind.Local).AddTicks(5842));
+                value: new DateTime(2014, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.UpdateData(
                 table: "Youtubers",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "Joined",
-                value: new DateTime(2024, 5, 3, 17, 29, 57, 50, DateTimeKind.Local).AddTicks(5845));
+                value: new DateTime(2010, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.CreateIndex(
                 name: "IX_YoutuberRecords_YoutuberId",

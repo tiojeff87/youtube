@@ -8,8 +8,7 @@ namespace Youtube.Domain.Entities
     public class YoutuberRecords
     {
         [Key]
-        [Display(Name = "Youtuber Trophy")]
-        public int Youtuber_Trophy { get; set; }
+        public int Votos { get; set; }
 
         [ForeignKey("YoutuberId")]
         public int YoutuberId { get; set; }
@@ -17,7 +16,7 @@ namespace Youtube.Domain.Entities
         [ValidateNever]
         public Youtuber Youtuber { get; set; } = null!;
 
-        [Display(Name = "Special Details")]
-        public string? SpecialDetails { get; set; }
+        [Display(Name = "Youtuber Trophy")]
+        public required string Youtuber_Trophy { get; set; }
     }
 }

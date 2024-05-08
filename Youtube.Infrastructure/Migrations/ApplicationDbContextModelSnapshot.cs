@@ -64,7 +64,7 @@ namespace Youtube.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Joined = new DateTime(2024, 5, 3, 20, 38, 47, 420, DateTimeKind.Local).AddTicks(7738),
+                            Joined = new DateTime(2012, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Wuant",
                             Subscribers = 3690000,
                             country = "Portugal",
@@ -74,7 +74,7 @@ namespace Youtube.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Joined = new DateTime(2024, 5, 3, 20, 38, 47, 420, DateTimeKind.Local).AddTicks(7792),
+                            Joined = new DateTime(2014, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Toshiruz",
                             Subscribers = 616000,
                             country = "Brazil",
@@ -84,7 +84,7 @@ namespace Youtube.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            Joined = new DateTime(2024, 5, 3, 20, 38, 47, 420, DateTimeKind.Local).AddTicks(7794),
+                            Joined = new DateTime(2010, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Wuant",
                             Subscribers = 111000000,
                             country = "Sweden",
@@ -95,19 +95,20 @@ namespace Youtube.Infrastructure.Migrations
 
             modelBuilder.Entity("Youtube.Domain.Entities.YoutuberRecords", b =>
                 {
-                    b.Property<int>("Youtuber_Trophy")
+                    b.Property<int>("Votos")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Youtuber_Trophy"));
-
-                    b.Property<string>("SpecialDetails")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Votos"));
 
                     b.Property<int>("YoutuberId")
                         .HasColumnType("int");
 
-                    b.HasKey("Youtuber_Trophy");
+                    b.Property<string>("Youtuber_Trophy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Votos");
 
                     b.HasIndex("YoutuberId");
 
@@ -116,45 +117,45 @@ namespace Youtube.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Youtuber_Trophy = 100001,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 1
+                            Votos = 100001,
+                            YoutuberId = 1,
+                            Youtuber_Trophy = "silver"
                         },
                         new
                         {
-                            Youtuber_Trophy = 1000001,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 1
+                            Votos = 1000001,
+                            YoutuberId = 1,
+                            Youtuber_Trophy = "gold"
                         },
                         new
                         {
-                            Youtuber_Trophy = 100002,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 2
+                            Votos = 100002,
+                            YoutuberId = 2,
+                            Youtuber_Trophy = "silver"
                         },
                         new
                         {
-                            Youtuber_Trophy = 100003,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 3
+                            Votos = 100003,
+                            YoutuberId = 3,
+                            Youtuber_Trophy = "silver"
                         },
                         new
                         {
-                            Youtuber_Trophy = 10000003,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 3
+                            Votos = 10000003,
+                            YoutuberId = 3,
+                            Youtuber_Trophy = "gold"
                         },
                         new
                         {
-                            Youtuber_Trophy = 100000003,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 3
+                            Votos = 100000003,
+                            YoutuberId = 3,
+                            Youtuber_Trophy = "diamond"
                         },
                         new
                         {
-                            Youtuber_Trophy = 50000003,
-                            SpecialDetails = "Some special details for this record",
-                            YoutuberId = 3
+                            Votos = 50000003,
+                            YoutuberId = 3,
+                            Youtuber_Trophy = "ruby"
                         });
                 });
 

@@ -9,7 +9,7 @@ namespace Youtube.Infrastructure.Data
     {
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {}
+        { }
         public DbSet<Youtuber> Youtubers { get; set; }
 
         public DbSet<YoutuberRecords> YoutuberRecords { get; set; }
@@ -19,78 +19,78 @@ namespace Youtube.Infrastructure.Data
             // base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Youtuber>().HasData(
             new Youtuber
-                {
-                    Id = 1,
-                    Name = "Wuant",
-                    Subscribers = 3690000,
-                    videos = 1596,
-                    views = 1342325614,
-                    Joined = DateTime.Now,
-                    country = "Portugal",
-                },
+            {
+                Id = 1,
+                Name = "Wuant",
+                Subscribers = 3690000,
+                videos = 1596,
+                views = 1342325614,
+                Joined = new DateTime(2012, 1, 11),
+                country = "Portugal",
+            },
             new Youtuber
             {
                 Id = 2,
-                    Name = "Toshiruz",
-                    Subscribers = 616000,
-                    videos = 1482,
-                    views = 124672906,
-                    Joined = DateTime.Now,
-                    country = "Brazil",
-                },
+                Name = "Toshiruz",
+                Subscribers = 616000,
+                videos = 1482,
+                views = 124672906,
+                Joined = new DateTime(2014, 7, 25),
+                country = "Brazil",
+            },
             new Youtuber
             {
                 Id = 3,
-                    Name = "Wuant",
-                    Subscribers = 111000000,
-                    videos = 4760,
-                    views = 292766664,
-                    Joined = DateTime.Now,
-                    country = "Sweden",
-                });
+                Name = "Wuant",
+                Subscribers = 111000000,
+                videos = 4760,
+                views = 292766664,
+                Joined = new DateTime(2010, 4, 29),
+                country = "Sweden",
+            });
 
             modelBuilder.Entity<YoutuberRecords>().HasData(
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 100001,
+                    Votos = 100001,
                     YoutuberId = 1,
-                    SpecialDetails = "Some special details for this record"
+                    Youtuber_Trophy = "silver"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 1000001,
+                    Votos = 1000001,
                     YoutuberId = 1,
-                    SpecialDetails = "Some special details for this record"
+                    Youtuber_Trophy = "gold"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 100002,
+                    Votos = 100002,
                     YoutuberId = 2,
-                    SpecialDetails = "Some special details for this record"
+                    Youtuber_Trophy = "silver"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 100003,
+                    Votos = 100003,
                     YoutuberId = 3,
-                    SpecialDetails = "Some special details for this record"
+                    Youtuber_Trophy = "silver"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 10000003,
+                    Votos = 10000003,
                     YoutuberId = 3,
-                    SpecialDetails = "Some special details for this record"
+                    Youtuber_Trophy = "gold"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 100000003,
+                    Votos = 100000003,
                     YoutuberId = 3,
-                    SpecialDetails = "Some special details for this record"
+                    Youtuber_Trophy = "diamond"
                 },
                 new YoutuberRecords
                 {
-                    Youtuber_Trophy = 50000003,
+                    Votos = 50000003,
                     YoutuberId = 3,
-                    SpecialDetails = "Some special details for this record"
+                    Youtuber_Trophy = "ruby"
                 });
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

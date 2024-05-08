@@ -1,9 +1,13 @@
-﻿namespace Youtube.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Youtube.Domain.Entities
 {
     public class Youtuber
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; }
         public int Subscribers { get; set; }
         public int videos { get; set; }
         public int views { get; set; }
