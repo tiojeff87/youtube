@@ -1,21 +1,25 @@
 ﻿using Youtube.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Youtube.Domain.Entities;
+using Youtube.Application.Common.Interfaces;
+using Youtube.Infrastructure.Repository;
 
 namespace Youtube.web.Controllers
 {
     public class YoutuberController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public YoutuberController(ApplicationDbContext db)
+        public YoutuberController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
         {
-            var youtube = _db.Youtubers.ToList();
+            var youtube = _unitOfWork.Youtuber.GetAll();
 
             return View(youtube);
         }
@@ -31,8 +35,8 @@ namespace Youtube.web.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Youtubers.Add(obj);
-                _db.SaveChanges();
+                _unitOfWork.Youtuber.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "The Youtuber has been created successfully.";
                 return RedirectToAction(nameof(Index));
             }
@@ -43,7 +47,7 @@ namespace Youtube.web.Controllers
 
         public IActionResult Update(int YoutuberId)
         {
-            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == YoutuberId);
+            Youtuber? obj = _unitOfWork.Youtuber.Get(_ => _.Id == YoutuberId);
 
             if (obj is null)
             {
@@ -59,8 +63,8 @@ namespace Youtube.web.Controllers
         {
             if (ModelState.IsValid && obj.Id > 0)
             {
-                _db.Youtubers.Update(obj);
-                _db.SaveChanges();
+                _unitOfWork.Youtuber.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "The Youtuber has been updated successfully.";
                 return RedirectToAction(nameof(Index));
             }
@@ -71,7 +75,7 @@ namespace Youtube.web.Controllers
 
         public IActionResult Delete(int YoutuberId)
         {
-            Youtuber? obj = _db.Youtubers.FirstOrDefault(_ => _.Id == YoutuberId);
+            Youtuber? obj = _unitOfWork.Youtuber.Get(_ => _.Id == YoutuberId);
 
             if (obj is null)
             {
@@ -84,12 +88,12 @@ namespace Youtube.web.Controllers
         [HttpPost]
         public IActionResult Delete(Youtuber obj)
         {
-            Youtuber? objFromDb = _db.Youtubers.FirstOrDefault(_ => _.Id == obj.Id);
+            Youtuber? objFromDb = _unitOfWork.Youtuber.Get(_ => _.Id == obj.Id);
 
             if (objFromDb is not null)
             {
-                _db.Youtubers.Remove(objFromDb);
-                _db.SaveChanges();
+                _unitOfWork.Youtuber.Remove(obj);
+                _unitOfWork.Save();
 
                 TempData["success"] = "The Youtuber has been deleted successfully.";
 

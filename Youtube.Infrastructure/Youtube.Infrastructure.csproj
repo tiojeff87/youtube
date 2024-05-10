@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Youtube.Domain\Youtube.Domain.csproj" />
+	  <ProjectReference Include="..\Youtube.Domain\Youtube.Domain.csproj" />
+	  <ProjectReference Include="..\Youtube.Application\Youtube.Application.csproj" />  
   </ItemGroup>
 
 </Project>

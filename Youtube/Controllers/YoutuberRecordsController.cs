@@ -5,24 +5,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Youtube.web.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
+using Youtube.Application.Common.Interfaces;
 
 namespace Youtube.web.Controllers
 {
     public class YoutuberRecordsController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public YoutuberRecordsController(ApplicationDbContext db)
+        public YoutuberRecordsController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            var YoutuberRecords = _db.YoutuberRecords
-                .Include(u => u.Youtuber)
-                .ToList();
-
+            var YoutuberRecords = _unitOfWork.YoutuberRecords.GetAll(includeProperties: "Youtuber");
             return View(YoutuberRecords);
         }
 
@@ -30,7 +28,7 @@ namespace Youtube.web.Controllers
         {
             youtuberRecordsVM youtuberRecordsVM = new()
             {
-                YoutuberList = _db.Youtubers.ToList().Select(u => new SelectListItem
+                YoutuberList = _unitOfWork.Youtuber.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
@@ -45,15 +43,16 @@ namespace Youtube.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool roomNumberExists = _db.YoutuberRecords.Any(u => u.Votos == obj.YoutuberRecords.Votos);
+                bool roomNumberExists = _unitOfWork.YoutuberRecords.Any(u => u.Votos == obj.YoutuberRecords.Votos);
 
                 if (!roomNumberExists)
                 {
                     // Remove the explicit setting of the Votos property
                     obj.YoutuberRecords.Votos = 0; // Or any default value if necessary
 
-                    _db.YoutuberRecords.Add(obj.YoutuberRecords);
-                    _db.SaveChanges();
+                    _unitOfWork.YoutuberRecords.Add(obj.YoutuberRecords);
+                    _unitOfWork.Save();
+
                     TempData["success"] = "The villa number has been created successfully.";
                     return RedirectToAction(nameof(Index));
                 }
@@ -64,7 +63,7 @@ namespace Youtube.web.Controllers
             }
 
             // Re-populate the YoutuberList property
-            obj.YoutuberList = _db.Youtubers.Select(u => new SelectListItem
+            obj.YoutuberList = _unitOfWork.Youtuber.GetAll().Select(u => new SelectListItem
             {
                 Text = u.Name,
                 Value = u.Id.ToString()
@@ -76,14 +75,13 @@ namespace Youtube.web.Controllers
         {
             youtuberRecordsVM viewModel = new youtuberRecordsVM
             {
-                YoutuberList = _db.Youtubers
-                    .Select(y => new SelectListItem
+                YoutuberList = _unitOfWork.Youtuber.GetAll().Select(y => new SelectListItem
                     {
                         Text = y.Name,
                         Value = y.Id.ToString()
                     })
                     .ToList(),
-                YoutuberRecords = _db.YoutuberRecords.FirstOrDefault(y => y.Votos == youtuberRecordsId)
+                YoutuberRecords = _unitOfWork.YoutuberRecords.Get(y => y.Votos == youtuberRecordsId)
             };
 
             if (viewModel.YoutuberRecords == null)
@@ -100,15 +98,14 @@ namespace Youtube.web.Controllers
         {
             if (ModelState.IsValid && viewModel.YoutuberRecords != null)
             {
-                _db.YoutuberRecords.Update(viewModel.YoutuberRecords);
-                _db.SaveChanges();
+                _unitOfWork.YoutuberRecords.Update(viewModel.YoutuberRecords);
+                _unitOfWork.Save();
                 TempData["success"] = "The youtuber record has been updated successfully.";
                 return RedirectToAction(nameof(Index));
             }
 
             TempData["error"] = "The youtuber record could not be updated.";
-            viewModel.YoutuberList = _db.Youtubers
-                .Select(y => new SelectListItem
+            viewModel.YoutuberList = _unitOfWork.Youtuber.GetAll().Select(y => new SelectListItem
                 {
                     Text = y.Name,
                     Value = y.Id.ToString()
@@ -122,12 +119,12 @@ namespace Youtube.web.Controllers
         {
             youtuberRecordsVM youtuberRecordsVM = new()
             {
-                YoutuberList = _db.Youtubers.ToList().Select(u => new SelectListItem
+                YoutuberList = _unitOfWork.Youtuber.GetAll().Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
                 }),
-                YoutuberRecords = _db.YoutuberRecords.FirstOrDefault(_ => _.Votos == youtuberRecordsId)!
+                YoutuberRecords = _unitOfWork.YoutuberRecords.Get(_ => _.Votos == youtuberRecordsId)!
             };
 
             if (youtuberRecordsVM.YoutuberRecords is null)
@@ -142,13 +139,12 @@ namespace Youtube.web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(youtuberRecordsVM youtuberRecordsVM)
         {
-            YoutuberRecords objFromDb = _db.YoutuberRecords
-                .FirstOrDefault(_ => _.Votos == youtuberRecordsVM.YoutuberRecords.Votos);
+            YoutuberRecords objFromDb = _unitOfWork.YoutuberRecords.Get(_ => _.Votos == youtuberRecordsVM.YoutuberRecords.Votos);
 
             if (objFromDb is not null)
             {
-                _db.YoutuberRecords.Remove(objFromDb);
-                _db.SaveChanges();
+                _unitOfWork.YoutuberRecords.Remove(objFromDb);
+                _unitOfWork.Save();
 
                 TempData["success"] = "The youtuber records has been deleted successfully.";
 
